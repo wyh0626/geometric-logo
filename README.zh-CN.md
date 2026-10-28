@@ -1,16 +1,16 @@
-# geo-icon
+# geometric-logo
 
 **一个 agent skill：用几何构造（圆、圆弧、切线、等宽缝）生成图标和 logo，并输出构图证明卡。**
 
 [English](README.md)
 
-![geo-icon 生成的构图卡](docs/images/hero.png)
+![geometric-logo 生成的构图卡](docs/images/hero.png)
 
 agent 写的是**构造**：一份很短的 JSON 规格，描述圆、环、叶形、相切圆弧链和布尔运算。脚本据此算出轮廓，
 再把同一批图元画回构图卡上作为构造线。所以卡上的几何就是形状的来源，而不是事后贴上去的装饰。
 
 ```bash
-npx skills add wyh0626/geo-icon
+npx skills add wyh0626/geometric-logo
 ```
 
 ## 功能
@@ -30,12 +30,12 @@ npx skills add wyh0626/geo-icon
 
 <p align="center"><img src="docs/images/spark-construction.png" width="420" alt="Spark 构图卡"> <img src="docs/images/spark-icon.png" width="200" alt="Spark 图标"></p>
 
-*Spark：十二根胶囊形光芒，长短每 30° 交替，短的是长的 1/φ（[规格](skills/geo-icon/examples/spark.json)）。*
+*Spark：十二根胶囊形光芒，长短每 30° 交替，短的是长的 1/φ（[规格](skills/geometric-logo/examples/spark.json)）。*
 
 <p align="center"><img src="docs/images/seal-construction.png" width="420" alt="Seal 构图卡"> <img src="docs/images/seal-icon.png" width="200" alt="Seal 图标"></p>
 
 *Seal：一条轮廓依次绕过尾巴、一段长背弧（r = 50）、颈、胸和贴在地面线上的腹圆；鳍和头用同一宽度的缝分层，
-球在鼻尖上方一个缝宽处，单独上色（[规格](skills/geo-icon/examples/seal.json)）。*
+球在鼻尖上方一个缝宽处，单独上色（[规格](skills/geometric-logo/examples/seal.json)）。*
 
 ### 2. 规整现有图标
 
@@ -48,7 +48,7 @@ npx skills add wyh0626/geo-icon
 <p align="center"><img src="docs/images/waveform-construction.png" width="420" alt="Waveform 构图卡"></p>
 
 *五根圆头竖条，所有尺寸由条宽 w 推出：间距 w + w/φ，高度 1 : 2 : 3，最高一根为 8w；方块圆角取 iOS 的 22.37%
-（[规格](skills/geo-icon/examples/waveform.json)）。*
+（[规格](skills/geometric-logo/examples/waveform.json)）。*
 
 ### 3. 其他
 
@@ -57,7 +57,7 @@ npx skills add wyh0626/geo-icon
   `turtle`（相切圆弧链和黄金螺旋）、布尔运算、镜像、旋转、阵列。
 - **等宽缝：** `{"add": X, "gap": g}` 在重叠部件之间挖出统一宽度的缝，构图卡上画成同心圆。
 - **多色和 App 图标：** `backdrop`（如圆角方块底）和 `paint`（分区上色）；`--icon-pad 0 --icon-png 1024` 输出满版 App Store 图标。
-- **评审外部 SVG：** `geoicon.py --svg 文件.svg` 对别处生成的 SVG 做海报、小尺寸测试和体检。
+- **评审外部 SVG：** `logo.py --svg 文件.svg` 对别处生成的 SVG 做海报、小尺寸测试和体检。
 - **复杂题材的预留接口：** 龙、麒麟这类细节繁多的题材无法用几个圆概括。`scripts/external.py` 是接入自由矢量模型的接口，
   本项目不内置任何第三方服务。
 
@@ -66,16 +66,16 @@ npx skills add wyh0626/geo-icon
 用 [skills CLI](https://skills.sh)：
 
 ```bash
-npx skills add wyh0626/geo-icon            # 安装到当前项目
-npx skills add wyh0626/geo-icon -g         # 所有项目可用
+npx skills add wyh0626/geometric-logo            # 安装到当前项目
+npx skills add wyh0626/geometric-logo -g         # 所有项目可用
 ```
 
-或者把 `skills/geo-icon` 复制到 `~/.claude/skills/`（Claude Code），或你所用 agent 的 skills 目录。
+或者把 `skills/geometric-logo` 复制到 `~/.claude/skills/`（Claude Code），或你所用 agent 的 skills 目录。
 
 依赖 Python 3.9+：
 
 ```bash
-python3 -m pip install -r skills/geo-icon/requirements.txt   # shapely>=2、numpy、Pillow
+python3 -m pip install -r skills/geometric-logo/requirements.txt   # shapely>=2、numpy、Pillow
 ```
 
 PNG 输出依次尝试 `rsvg-convert`、`cairosvg`、Chrome/Chromium/Edge 无头模式、macOS `qlmanage`；都没有时只输出 SVG。
@@ -91,13 +91,13 @@ PNG 输出依次尝试 `rsvg-convert`、`cairosvg`、Chrome/Chromium/Edge 无头
 也可以直接运行脚本：
 
 ```bash
-python3 skills/geo-icon/scripts/geoicon.py skills/geo-icon/examples/spark.json -o out/spark
-python3 skills/geo-icon/scripts/measure.py my-icon.png
-python3 skills/geo-icon/scripts/geoicon.py spec.json -o out --compare my-icon.png --icon-pad 0 --icon-png 1024
+python3 skills/geometric-logo/scripts/logo.py skills/geometric-logo/examples/spark.json -o out/spark
+python3 skills/geometric-logo/scripts/measure.py my-icon.png
+python3 skills/geometric-logo/scripts/logo.py spec.json -o out --compare my-icon.png --icon-pad 0 --icon-png 1024
 ```
 
-完整的规格语法见 [`references/spec.md`](skills/geo-icon/references/spec.md)，构造方法和经验总结见
-[`references/method.md`](skills/geo-icon/references/method.md)。
+完整的规格语法见 [`references/spec.md`](skills/geometric-logo/references/spec.md)，构造方法和经验总结见
+[`references/method.md`](skills/geometric-logo/references/method.md)。
 
 ## 致谢
 

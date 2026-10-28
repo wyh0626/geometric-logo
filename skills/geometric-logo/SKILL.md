@@ -1,5 +1,5 @@
 ---
-name: geo-icon
+name: geometric-logo
 description: >
   用几何构造生成极简扁平图标 / logo / 徽章 / 家纹，并输出带方格纸、构造圆、切线、圆心标记的"构图证明卡"
   (construction sheet)、海报图和干净的单路径 SVG，风格类似 rikyu.ai。Designs minimal flat logo marks from
@@ -10,7 +10,7 @@ description: >
   even if they only say "帮我做一个 X 的极简图标" or "make a minimalist logo for my bakery".
 ---
 
-# Geo Icon：用几何构造画图标
+# Geometric Logo：用几何构造画图标
 
 你写的是**构造**，不是轮廓。一份 JSON 规格描述圆、环、切线、两弧夹出的叶形 (lune)、相切圆弧链、凸包和布尔运算。
 脚本据此算出最终轮廓，并把同一批图元画回构图卡上当作构造线。所以构造线就是形状的来源，不是事后贴上去的装饰。
@@ -18,7 +18,7 @@ description: >
 
 ## 产物
 
-`python3 <本 skill 目录>/scripts/geoicon.py spec.json -o <输出目录>` 生成：
+`python3 <本 skill 目录>/scripts/logo.py spec.json -o <输出目录>` 生成：
 
 | 文件 | 内容 |
 |---|---|
@@ -41,7 +41,7 @@ Rikyū 的几何 logo 也是这样做的（反算它的猫和大猩猩，所有�
 |---|---|---|
 | **新做一个图标，题材简单** | 抽象图形、1–3 个字母、物件，以及 10 个以内部件能概括的动物 | 构造模式（下面的工作流） |
 | **规整一个现有图标** | 用户给了图标图片，想让它更整齐、更标准 | 规整工作流（见下节） |
-| **题材太复杂** | 龙、麒麟、凤凰这类鬃毛、鳞片、卷云繁多的题材 | 先建议简化成几何剪影；用户坚持要复杂版，就走外部矢量接口 `scripts/external.py`。本 skill 不内置任何第三方服务，接口是预留的（见 `references/external-vector.md`），没配置时如实告诉用户。外部生成的 SVG 用 `geoicon.py --svg` 做同样的海报、小尺寸测试和体检，但没有构图卡 |
+| **题材太复杂** | 龙、麒麟、凤凰这类鬃毛、鳞片、卷云繁多的题材 | 先建议简化成几何剪影；用户坚持要复杂版，就走外部矢量接口 `scripts/external.py`。本 skill 不内置任何第三方服务，接口是预留的（见 `references/external-vector.md`），没配置时如实告诉用户。外部生成的 SVG 用 `logo.py --svg` 做同样的海报、小尺寸测试和体检，但没有构图卡 |
 
 ## 规整现有图标
 
@@ -63,7 +63,7 @@ Rikyū 的几何 logo 也是这样做的（反算它的猫和大猩猩，所有�
      这类可见的变化要在交付时说清楚，并给出保留原貌的替代做法（例如只取同曲率、不取同心）。
 4. **渲染并对比：**
    ```bash
-   python3 <本 skill 目录>/scripts/geoicon.py spec.json -o out/ --compare icon.png --icon-pad 0 --icon-png 1024
+   python3 <本 skill 目录>/scripts/logo.py spec.json -o out/ --compare icon.png --icon-pad 0 --icon-png 1024
    ```
    `compare.png` 并排显示"原图 | 规整后 | 叠加"，叠加图用红线画新轮廓压在半透明原图上。
    有 `backdrop` 时，原图会按"整张图 = 方块"来对齐，所以先把截图裁到方块边缘。

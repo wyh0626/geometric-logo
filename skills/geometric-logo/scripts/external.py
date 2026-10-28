@@ -4,17 +4,17 @@
     python3 external.py --brief "..." -o out.svg [--ref image.png ...]
     python3 external.py --list
 
-geo-icon builds marks from circles and lines. Subjects such as dragons, kirin or
+geometric-logo builds marks from circles and lines. Subjects such as dragons, kirin or
 phoenixes (manes, scales, clouds) do not reduce to a handful of circles; those
 go to a model that draws free-form SVG instead (Rikyu uses QuiverAI Arrow; Recraft's
 vector models are another option). No provider ships with this skill. To add one,
 write a function with the signature below, register it in PROVIDERS, and select it
-with the GEO_ICON_PROVIDER environment variable. Keep API keys in environment
+with the GEOMETRIC_LOGO_PROVIDER environment variable. Keep API keys in environment
 variables, never in the spec or the brief.
 
 The SVG that comes back is reviewed with the same tools as a constructed mark:
 
-    python3 geoicon.py --svg out.svg -o review/      # poster, sizes sheet, report (no construction card)
+    python3 logo.py --svg out.svg -o review/      # poster, sizes sheet, report (no construction card)
 """
 from __future__ import annotations
 
@@ -46,18 +46,18 @@ def main():
     if args.list:
         print("registered providers:", ", ".join(PROVIDERS) or "none")
         return
-    name = os.environ.get("GEO_ICON_PROVIDER", "")
+    name = os.environ.get("GEOMETRIC_LOGO_PROVIDER", "")
     if not PROVIDERS:
         sys.exit("external: no vector provider is configured in this skill.\n"
                  "This subject is too complex for geometric construction. Either simplify it to a geometric\n"
-                 "silhouette and use geoicon.py, or add a provider to PROVIDERS in scripts/external.py\n"
+                 "silhouette and use logo.py, or add a provider to PROVIDERS in scripts/external.py\n"
                  "(see references/external-vector.md).")
     if name not in PROVIDERS:
-        sys.exit(f"external: set GEO_ICON_PROVIDER to one of: {', '.join(PROVIDERS)}")
+        sys.exit(f"external: set GEOMETRIC_LOGO_PROVIDER to one of: {', '.join(PROVIDERS)}")
     if not args.brief:
         sys.exit("external: --brief is required")
     path = PROVIDERS[name](args.brief, args.ref, args.out)
-    print(f"wrote {path}  (review it with: python3 geoicon.py --svg {path} -o review/)")
+    print(f"wrote {path}  (review it with: python3 logo.py --svg {path} -o review/)")
 
 
 if __name__ == "__main__":

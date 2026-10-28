@@ -5,7 +5,7 @@
 
 Used when regularising an existing icon: the numbers tell you what the icon
 was trying to be (equal widths? a 1:2:3 height system? a centred group?) so
-you can write a clean construction spec in geoicon.py. Nothing is traced into
+you can write a clean construction spec in logo.py. Nothing is traced into
 the output; the spec is still written by hand.
 
 The ink (dark by default) is fitted into the 100 x 100 artboard with its longest
@@ -29,7 +29,7 @@ from shapely.geometry import Polygon, box
 from shapely.ops import unary_union
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import geoicon as G  # noqa: E402
+import logo as G  # noqa: E402
 
 
 def otsu(gray):

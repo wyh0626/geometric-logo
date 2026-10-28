@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""geoicon: build a flat icon from a geometric-construction spec.
+"""logo: build a flat icon from a geometric-construction spec.
 
-    python3 geoicon.py SPEC.json [-o OUTDIR] [--no-png] [--scale 2]
+    python3 logo.py SPEC.json [-o OUTDIR] [--no-png] [--scale 2]
 
 The spec describes the mark as primitives (circles, rings, vesicas, tangent
 arcs, hulls...) combined with boolean operations. The outline is computed
@@ -39,7 +39,7 @@ try:
     from shapely.geometry import LineString, MultiPolygon, Point, Polygon
     from shapely.ops import unary_union
 except ImportError:  # pragma: no cover
-    sys.exit("geoicon needs shapely:  python3 -m pip install shapely")
+    sys.exit("logo needs shapely:  python3 -m pip install shapely")
 
 PHI = (1 + 5 ** 0.5) / 2
 QS = 64            # segments per quarter circle when approximating curves

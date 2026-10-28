@@ -1,6 +1,6 @@
 # 外部矢量接口（预留）
 
-geo-icon 只用圆和直线构造图标。龙、麒麟、凤凰这类题材做不好，Rikyū 遇到它们也不走几何路线，
+geometric-logo 只用圆和直线构造图标。龙、麒麟、凤凰这类题材做不好，Rikyū 遇到它们也不走几何路线，
 而是交给自由矢量模型（它用的是 QuiverAI Arrow），而且不出构图卡。
 
 本 skill **不内置任何第三方服务**，只预留接口。需要时按下面的方式接入。
@@ -27,9 +27,9 @@ PROVIDERS = {"my": my_provider}
 然后：
 
 ```bash
-export GEO_ICON_PROVIDER=my
+export GEOMETRIC_LOGO_PROVIDER=my
 python3 scripts/external.py --brief "圆形徽章，盘龙，黑白两色，无文字" -o dragon.svg
-python3 scripts/geoicon.py --svg dragon.svg -o review/
+python3 scripts/logo.py --svg dragon.svg -o review/
 ```
 
 ## brief 怎么写
@@ -42,7 +42,7 @@ python3 scripts/geoicon.py --svg dragon.svg -o review/
 
 ## 评审
 
-`geoicon.py --svg` 输出 `poster.png`、`sizes.png` 和 `report.txt`。重点看两项：
+`logo.py --svg` 输出 `poster.png`、`sizes.png` 和 `report.txt`。重点看两项：
 - `sizes.png`：32px 以下能否辨认。复杂题材最容易在这里失败。
 - `report.txt` 的 `thin parts` / `tight gaps`：数量多说明缩小后会糊。
   实测 Arrow 生成的龙：20 处过细、23 处缝太窄，64px 还能看，32px 以下糊成一团。

@@ -1,4 +1,4 @@
-# geoicon spec 参考
+# logo spec 参考
 
 目录
 1. 文件结构与顶层字段
@@ -213,13 +213,13 @@ JSON 文件，允许 `//` 注释和末尾逗号。
 ## 8. 命令行
 
 ```bash
-python3 scripts/geoicon.py spec.json -o out/dir   # 默认输出到 spec 旁边、以 name 命名的目录
-python3 scripts/geoicon.py spec.json --scale 2    # 海报和构图卡输出 2160×2700
-python3 scripts/geoicon.py spec.json --no-png     # 只要 SVG
-python3 scripts/geoicon.py spec.json --all-guides # 构图卡画出全部构造（调试用）
-python3 scripts/geoicon.py spec.json --compare old.png          # 规整现有图标：另出 compare.png（原图 | 规整后 | 叠加）
-python3 scripts/geoicon.py spec.json --icon-pad 0 --icon-png 1024  # icon.svg 满版无边距，并输出 1024px 的 icon.png
-python3 scripts/geoicon.py --svg other.svg -o review/            # 评审外部生成的 SVG：海报、小尺寸测试、体检，无构图卡
+python3 scripts/logo.py spec.json -o out/dir   # 默认输出到 spec 旁边、以 name 命名的目录
+python3 scripts/logo.py spec.json --scale 2    # 海报和构图卡输出 2160×2700
+python3 scripts/logo.py spec.json --no-png     # 只要 SVG
+python3 scripts/logo.py spec.json --all-guides # 构图卡画出全部构造（调试用）
+python3 scripts/logo.py spec.json --compare old.png          # 规整现有图标：另出 compare.png（原图 | 规整后 | 叠加）
+python3 scripts/logo.py spec.json --icon-pad 0 --icon-png 1024  # icon.svg 满版无边距，并输出 1024px 的 icon.png
+python3 scripts/logo.py --svg other.svg -o review/            # 评审外部生成的 SVG：海报、小尺寸测试、体检，无构图卡
 python3 scripts/measure.py old.png                               # 测量现有图标的部件尺寸、间距、比例
 ```
 
