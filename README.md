@@ -52,10 +52,6 @@ Give it an icon image. `measure.py` reports every part — widths, spacing, heig
 - **Review external SVGs**: `geoicon.py --svg file.svg` renders poster, size test and lint for an SVG made elsewhere.
 - **Reserved hook for complex subjects**: dragons, kirin and other detailed subjects do not reduce to a handful of circles. `scripts/external.py` is a provider interface for a free-form vector model; none is bundled.
 
-![Example posters](docs/images/gallery-posters.png)
-
-![Example construction sheets](docs/images/gallery-cards.png)
-
 ## Install
 
 With the [skills CLI](https://skills.sh):

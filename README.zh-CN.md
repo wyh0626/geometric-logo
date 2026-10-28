@@ -61,10 +61,6 @@ npx skills add wyh0626/geo-icon
 - **复杂题材的预留接口：** 龙、麒麟这类细节繁多的题材无法用几个圆概括。`scripts/external.py` 是接入自由矢量模型的接口，
   本项目不内置任何第三方服务。
 
-![示例海报](docs/images/gallery-posters.png)
-
-![示例构图卡](docs/images/gallery-cards.png)
-
 ## 安装
 
 用 [skills CLI](https://skills.sh)：
