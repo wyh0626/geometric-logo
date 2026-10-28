@@ -1,0 +1,33 @@
+{
+  "name": "octopus",
+  "title": "Octopus",
+  "concept": "A round head and six tentacles, each a chain of tangent arcs that tightens into a golden spiral.",
+  "vars": {
+    "R": 17,                  // head
+    "e": 6.5,                 // eye offset from the axis
+    "taper": 0
+  },
+  "points": {
+    "H": [50, 33]
+  },
+  "shapes": {
+    "head": {"circle": ["H", "R"]},
+    "eyes": {"mirror": {"shape": {"circle": [["50 - e", 36], 4.4]}}},
+    "pupils": {"mirror": {"shape": {"circle": [["50 - e", 36.6], 2.1]}}},
+
+    // left side; every tentacle is a tapered turtle stroke ending in a spiral
+    "t_outer": {"turtle": {"start": [40, 45], "heading": 150, "w": [5.6, 1.6],
+                 "steps": [{"arc": 12, "turn": 30}, {"spiral": 7, "quarters": 4}]}},
+    "t_mid":   {"turtle": {"start": [44, 48], "heading": 118, "w": [5.6, 1.6],
+                 "steps": [{"arc": 16, "turn": 32}, {"spiral": 6.2, "quarters": 4}]}},
+    "t_inner": {"turtle": {"start": [47.5, 49], "heading": 94, "w": [5.6, 1.6],
+                 "steps": [{"arc": 22, "turn": 18}, {"spiral": 5.6, "quarters": 4}]}},
+    "tentacles": {"mirror": {"shape": {"union": ["t_outer", "t_mid", "t_inner"]}}}
+  },
+  "ink": [
+    "tentacles",
+    "head",
+    {"cut": "eyes"},
+    "pupils"
+  ]
+}

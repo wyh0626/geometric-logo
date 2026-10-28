@@ -1,0 +1,39 @@
+{
+  "name": "rocket",
+  "title": "Rocket",
+  "concept": "A capsule, two fins and a flame on one axis. The body is the vesica of two large circles; the fins and flame are lunes, each bounded by two arcs through the same two points.",
+  "vars": {
+    // vesica with half-width w and half-height h:  R - d = w,  R^2 - d^2 = h^2
+    "w": 12, "h": 30,
+    "R": "(h*h/w + w)/2",
+    "d": "R - w",
+    "cy": 40,
+    "base": 62,                 // flat base of the capsule
+    "g": 2.2                    // the one gap used everywhere
+  },
+  "points": {
+    "Ft": [36, 47],              // fin top: just clear of body + gap, so the tip stays sharp
+    "Fb": [31, 75]              // fin tip, flared out
+  },
+  "shapes": {
+    "body": {"intersect": [
+      {"circle": [["50 - d", "cy"], "R"]},
+      {"circle": [["50 + d", "cy"], "R"]},
+      {"rect": {"x": 0, "y": 0, "w": 100, "h": "base"}, "guide": "lines"}
+    ]},
+    "window": {"circle": [[50, 31], 5]},
+    // walking Ft -> Fb the right-hand side is outward, so both bulges are positive
+    "fin":  {"lune": {"a": "Ft", "b": "Fb", "bulge": [9.5, 1.5]}},
+    "fins": {"mirror": {"shape": "fin"}},
+    "flame": {"lune": {"a": [50, "base + 4"], "b": [50, "base + 17"], "bulge": [3.4, -3.4]}}
+  },
+  "ink": [
+    "fins",
+    {"add": "body", "gap": "g"},
+    {"cut": "window"},
+    {"add": "flame", "gap": "g"}
+  ],
+  "guides": [
+    {"axis": true}
+  ]
+}

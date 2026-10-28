@@ -1,0 +1,35 @@
+{
+  "name": "waveform",
+  "title": "Waveform",
+  "concept": "五根圆头竖条组成的声波，全部尺寸由条宽 w 推出：间距 w/φ，高度按 1 : 2 : 3 递增，最高一根正好 8 个条宽；整组左右对称、在圆角方块中居中，方块圆角取 iOS 图标的 22.37%。",
+  "colors": {"ink": "#161616", "paper": "#FFFFFF"},
+  "vars": {
+    "w": 8,                     // bar width: the one module
+    "g": "w/phi",               // gap between bars (4.94): measured spacing 12.9 = w + w/phi
+    "p": "w + g",               // centre-to-centre pitch
+    "H": "8*w",                 // tallest bar = 64
+    "R": 22.37                  // iOS corner ratio on a 100 tile
+  },
+  "points": {
+    "O": [50, 50]
+  },
+  "shapes": {
+    "tile": {"rect": {"c": "O", "w": 100, "h": 100, "r": "R"}},
+    // left half and the centre bar; the right half is the mirror image
+    "bar1": {"rect": {"c": ["50 - 2*p", 50], "w": "w", "h": "H/3",   "r": "w/2"}},
+    "bar2": {"rect": {"c": ["50 - p",   50], "w": "w", "h": "2*H/3", "r": "w/2"}},
+    "bar3": {"rect": {"c": "O",              "w": "w", "h": "H",     "r": "w/2"}},
+    "bars": {"union": [{"mirror": {"shape": {"union": ["bar1", "bar2"]}}}, "bar3"]}
+  },
+  "ink": [
+    "tile",
+    {"cut": "bars"}
+  ],
+  "guides": [
+    {"axis": true},
+    {"haxis": true},
+    {"hline": "50 - H/2"}, {"hline": "50 + H/2"},
+    {"hline": "50 - H/3"}, {"hline": "50 + H/3"},
+    {"hline": "50 - H/6"}, {"hline": "50 + H/6"}
+  ]
+}

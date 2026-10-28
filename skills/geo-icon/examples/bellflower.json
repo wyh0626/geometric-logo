@@ -1,0 +1,33 @@
+{
+  "name": "bellflower",
+  "title": "Bellflower",
+  "concept": "Five pointed petals in a ring, in the manner of a family crest. Every petal is the same leaf, two equal arcs through a root and a tip, turned five times about the centre.",
+  "vars": {
+    "r0": 6.5,                  // petal root distance from O
+    "r1": 30.5,                   // petal tip distance from O
+    "b": 8.5,                    // half-width (bulge) of each petal
+    "Ro": 37, "rw": 4.5,        // ring
+    "g": 1.8                    // channel width (midribs)
+  },
+  "points": {
+    "O": [50, 50]
+  },
+  "shapes": {
+    "petal": {"lune": {"a": {"polar": ["O", "r0", -90]}, "b": {"polar": ["O", "r1", -90]}, "bulge": ["b", "-b"]}},
+    "petals": {"repeat": {"shape": "petal", "n": 5, "about": "O"}},
+    "rib":  {"stroke": {"pts": [{"polar": ["O", "r0 + 7", -90]}, {"polar": ["O", "r1 - 8", -90]}], "w": "g"}},
+    "ribs": {"repeat": {"shape": "rib", "n": 5, "about": "O"}, "guide": false},
+    "heart": {"circle": ["O", "r0 - 2.5"]},
+    "ring": {"ring": {"c": "O", "r": "Ro", "w": "rw"}}
+  },
+  "ink": [
+    "petals",
+    {"cut": "ribs"},
+    "heart",
+    "ring"
+  ],
+  "guides": [
+    {"circle": ["O", "r1"]},
+    {"circle": ["O", "r0"]}
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "name": "seal",
+  "title": "Seal",
+  "concept": "A seal balancing a ball. One outline wraps the tail, a long back arc, the neck, the chest and the belly circle resting on the ground line; the flipper is set apart by one even channel, and the ball sits one gap above the snout.",
+  "colors": {"ink": "#2F3B47", "paper": "#F3F0E7"},
+  "vars": {
+    "ground": 80,
+    "g": 1.8                    // the one channel width
+  },
+  "points": {
+    "R": 16,
+    "B": [48, "ground - 16"],   // belly circle rests on the ground
+    "N": [53, 35],              // back of the neck
+    "C": [62, 52],              // chest
+    "H": [59, 27],              // head
+    "S": [68, 28.5],            // snout
+    "T": [14, 76],              // tail
+    "Ball": [72, 15.4]          // one gap clear of head and snout
+  },
+  "shapes": {
+    // the whole body is one belt around circles, walked clockwise: tail, back, neck, chest, belly
+    "body": {"chain": [
+      ["T", 3.5],
+      [[62, 82], 50],           // the back: a big circle centred low, bulging ~6 past the tail-neck tangent
+      ["N", 7],
+      ["C", 8],
+      ["B", 16]
+    ]},
+    "head": {"hull": [{"circle": ["H", 8]}, {"circle": ["S", 3.8]}]},
+    "eye":  {"circle": [[60.5, 24.5], 1.2]},
+
+    // fore flipper resting forward from the chest
+    "flipper": {"lune": {"a": [60, 60], "b": [73, 74], "bulge": [-3.5, 1.0]}},
+    // tail flukes fork back from the tail
+    "flukes": {"union": [
+      {"lune": {"a": [16, 74], "b": [3, 66], "bulge": [2.6, -2.6]}},
+      {"lune": {"a": [16, 77], "b": [2, 79], "bulge": [2.4, -2.4]}}
+    ]},
+
+    "ball":   {"circle": ["Ball", 7.5]},
+    "seam":   {"arc": {"c": ["Ball.x - 13", "Ball.y"], "r": 13, "from": -36, "to": 36, "w": 1.6}},
+    "floor":  {"rect": {"x": -20, "y": "ground", "w": 140, "h": 30}, "guide": "lines"}
+  },
+  "ink": [
+    "body",
+    "flukes",
+    {"add": "head", "gap": "g"},
+    {"add": "flipper", "gap": "g"},
+    {"cut": "eye"},
+    {"cut": "floor"},
+    "ball",
+    {"cut": "seam"}
+  ],
+  "paint": [{"shape": "ball", "color": "#E9573F"}]
+}

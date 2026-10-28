@@ -1,0 +1,43 @@
+{
+  "name": "sails",
+  "title": "Sails",
+  "concept": "两面帆，每条边都是一段圆弧。前帆的帆前缘落在半径 R 的大圆上，后帆的右缘是它的同心圆（R − g），两帆之间留下等宽的缝；后帆左缘与前帆前缘同曲率，帆后缘取 1.5R，帆脚取 R/φ。整组在圆角方块中居中，圆角取 iOS 的 22.37%。",
+  "colors": {"ink": "#2A3793", "paper": "#ECEDEF"},
+  "vars": {
+    "Ra": 72,                   // luff circle: the one radius everything is measured against
+    "g": 3,                     // channel between the sails (radial)
+    "R2": "1.5*Ra",             // leech: outward curve of the front sail
+    "R3": "Ra/phi"              // foot: the front sail's upward curve
+  },
+  "points": {
+    "Ca": [-28, 50],            // centre of the luff circle, far left on the tile's mid line
+    "T":   ["Ca.x + sqrt(Ra*Ra - 31*31)", 19],          // front sail head, on the luff circle
+    "BL":  ["Ca.x + sqrt(Ra*Ra - 31*31)", 81],          // front sail tack, mirror of the head about y = 50
+    "BR":  [82, 74],                                    // front sail clew
+    "Lt":  ["Ca.x + sqrt((Ra-g)*(Ra-g) - 28*28)", "19 + g"],   // back sail head: one gap lower
+    "Lbr": ["Ca.x + sqrt((Ra-g)*(Ra-g) - 22*22)", 72],
+    "Lbl": [18, 72]
+  },
+  "shapes": {
+    "tile": {"rect": {"c": [50, 50], "w": 100, "h": 100, "r": 22.37}},
+
+    // walk each sail clockwise; positive bulge = to the right of the walk
+    "front": {"arcgon": {"pts": ["T", "BR", "BL"], "edges": [
+      "-(R2 - sqrt(R2*R2 - (dist(T, BR)/2)**2))",          // leech, bulging outward
+      "R3 - sqrt(R3*R3 - (dist(BR, BL)/2)**2)",             // foot, curving up into the sail
+      {"circle": {"c": "Ca", "r": "Ra"}}                    // luff, on the luff circle
+    ]}},
+    "back": {"arcgon": {"pts": ["Lt", "Lbr", "Lbl"], "edges": [
+      {"circle": {"c": "Ca", "r": "Ra - g"}},               // concentric with the front luff: an even channel
+      0.8,                                                  // foot, almost straight
+      "Ra - sqrt(Ra*Ra - (dist(Lbl, Lt)/2)**2)"             // luff, same curvature as the front luff
+    ]}}
+  },
+  "ink": ["front", "back"],
+  "backdrop": {"shape": "tile", "color": "#FFFFFF"},
+  "paint": [{"shape": "back", "color": "#2AA3DE"}],
+  "guides": [
+    {"haxis": 50},
+    {"hline": 19}, {"hline": 81}, {"hline": 72}
+  ]
+}

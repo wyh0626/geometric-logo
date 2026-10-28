@@ -1,0 +1,34 @@
+{
+  "name": "whale",
+  "title": "Whale",
+  "concept": "A whale from one large circle drawn out to a slim tail stock by two tangent lines. The flukes are a pair of leaves and the spout splits into two golden curls.",
+  "vars": {
+    "R": 20,                    // body
+    "r": 3.5,                   // tail stock
+    "g": 1.8                    // channel
+  },
+  "points": {
+    "B": [42, 60],
+    "T": [77, 45],              // tail stock centre
+    "S": [36, 41]               // spout root, sitting on the back
+  },
+  "shapes": {
+    "body":  {"hull": [{"circle": ["B", "R"]}, {"circle": ["T", "r"]}]},
+    "flukes": {"union": [
+      {"lune": {"a": "T", "b": [69, 31], "bulge": [4, -4]}},
+      {"lune": {"a": "T", "b": [91, 37], "bulge": [4, -4]}}
+    ]},
+    "mouth": {"arc": {"c": "B", "r": "R - 6", "from": 115, "to": 170, "w": "g"}},
+    "eye":   {"circle": [["B.x - 9", "B.y - 3"], 1.9]},
+    "spout": {"mirror": {"x": "S.x", "shape":
+      {"turtle": {"start": ["S.x", "S.y"], "heading": -90, "w": [3, 2.3],
+                  "steps": [{"fd": 6}, {"arc": 5, "turn": -70}, {"spiral": 3.6, "quarters": 2, "dir": -1}]}}}}
+  },
+  "ink": [
+    "body",
+    {"add": "flukes", "gap": "g"},
+    {"cut": "mouth"},
+    {"cut": "eye"},
+    {"add": "spout", "gap": "g"}
+  ]
+}

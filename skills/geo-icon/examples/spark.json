@@ -1,0 +1,36 @@
+{
+  "name": "spark",
+  "title": "Spark",
+  "concept": "A spark of twelve rounded rays on a rounded tile. Long and short rays alternate every 30 degrees; a short ray is 1/phi of a long one, and a small seed sits in the middle with an even gap around it.",
+  "colors": {"ink": "#FFFFFF", "paper": "#F3F0E7"},
+  "vars": {
+    "w": 5.5,                   // ray width: the module
+    "r0": 9,                    // where every ray starts
+    "R": 34,                    // where a long ray ends
+    "Rs": "r0 + (R - r0)/phi",  // where a short ray ends (24.5)
+    "seed": 3                   // centre dot
+  },
+  "points": {
+    "O": [50, 50]
+  },
+  "shapes": {
+    "tile": {"rect": {"c": "O", "w": 100, "h": 100, "r": 22.37}},
+    // one ray pointing right, as a capsule from r0 to its end; the rest are rotations of it
+    "long":  {"rect": {"x": "50 + r0 - w/2", "y": "50 - w/2", "w": "R - r0 + w",  "h": "w", "r": "w/2"}},
+    "short": {"rect": {"x": "50 + r0 - w/2", "y": "50 - w/2", "w": "Rs - r0 + w", "h": "w", "r": "w/2"}},
+    "rays": {"union": [
+      {"repeat": {"shape": "long",  "n": 6, "about": "O", "step": 60, "start": -90}},
+      {"repeat": {"shape": "short", "n": 6, "about": "O", "step": 60, "start": -60}}
+    ]},
+    "dot": {"circle": ["O", "seed"]}
+  },
+  "ink": ["rays", "dot"],
+  "backdrop": {"shape": "tile", "color": "#E9573F"},
+  "guides": [
+    {"circle": ["O", "R + w/2"]},
+    {"circle": ["O", "Rs + w/2"]},
+    {"circle": ["O", "r0 - w/2"]},
+    {"angle": ["O", 0]}, {"angle": ["O", 30]}, {"angle": ["O", 60]},
+    {"angle": ["O", 90]}, {"angle": ["O", 120]}, {"angle": ["O", 150]}
+  ]
+}

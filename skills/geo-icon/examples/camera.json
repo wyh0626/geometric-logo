@@ -1,0 +1,39 @@
+{
+  "name": "camera",
+  "title": "Camera",
+  "concept": "A camera drawn from concentric circles and level, straight edges. The flash sits on the centre of a corner circle.",
+  "size": 100,
+  "vars": {
+    // one module drives every band: cream gap = U, dark ring = 1.3U
+    "U": 3.5,
+    "cx": 50, "cy": 55,
+    "W": 72, "H": 46,
+    "Rc": 13,                 // body corner radius
+    "R0": 20                  // lens opening
+  },
+  "points": {
+    "C": ["cx", "cy"],
+    "F": ["cx + W/2 - Rc", "cy + H/2 - Rc"]   // centre of the bottom-right corner circle
+  },
+  "shapes": {
+    "body":  {"rect": {"c": "C", "w": "W", "h": "H", "r": "Rc"}},
+    "top":   {"rect": {"x": "cx - 11", "y": "cy - H/2 - 8", "w": 22, "h": 8}},
+    "hole":  {"circle": ["C", "R0"]},
+    "ring":  {"ring": {"c": "C", "r_out": "R0 - U", "r_in": "R0 - 2.3*U"}},
+    "glass": {"circle": ["C", "R0 - 3.3*U"]},
+    "flash": {"circle": ["F", 3]}
+  },
+  "ink": [
+    "body",
+    "top",
+    {"cut": "hole"},
+    "ring",
+    "glass",
+    {"cut": "flash"}
+  ],
+  "guides": [
+    {"axis": "cx"},
+    {"hline": "cy"},
+    {"radius": ["hole", 0]}
+  ]
+}
